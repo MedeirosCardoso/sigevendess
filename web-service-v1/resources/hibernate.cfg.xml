@@ -18,5 +18,7 @@
   <mapping class="br.com.sigevendees.entity.Componente"/>
   <mapping class="br.com.sigevendees.entity.Receita"/>
   <mapping class="br.com.sigevendees.entity.ItemReceita"/>
+  <mapping class="br.com.sigevendees.entity.Endereco"/>
+  <mapping class="br.com.sigevendees.entity.Cliente"/>
  </session-factory>
 </hibernate-configuration>

@@ -2,17 +2,18 @@ package br.com.sigevendees.repository;
 
 import java.util.List;
 import javax.ws.rs.core.Response;
-import br.com.sigevendees.dao.DaoInterface;
+import br.com.sigevendees.dao.InterfaceDao;
 import com.google.gson.Gson;
 
 /*Esta classe representa as ações em comum entre os repository das entity
- * R representa o tipo do recurso a ser consumido ou produzido pelo webService.
- * D representa o tipo do DAO utilizado para persistir e recuperar do BD.*/
-public abstract class GenericRepository<R, D extends DaoInterface<R>> {
+ * R representa o tipo do Recurso a ser consumido ou produzido pelo webService.
+ * D representa o tipo do DAO utilizado para persistir e recuperar do BD.
+ * I representa o tipo do Id utilizado para recuperar do BD.*/
+public abstract class GenericRepository<R, I> {
 
 	protected Gson gson = new Gson();
 	protected Response resposta;
-	protected D dao;
+	protected InterfaceDao<R,I> dao;
 	// atributo utilizado na conversão de dados em Json para objeto java,
 	// no qual é informado o tipo do objeto que o json vai representar.
 	protected Class<R> classe;
@@ -34,8 +35,8 @@ public abstract class GenericRepository<R, D extends DaoInterface<R>> {
 		return resposta;
 	}
 
-	public Response getRecurso(Integer cod) {
-		R resultado = dao.buscarPorId(cod);
+	public Response getRecurso(I id) {
+		R resultado = dao.buscarPor(id);
 		if (resultado != null) {
 			// retornado o recurso solicitado.
 			// converter o recurso retornado para JSON.

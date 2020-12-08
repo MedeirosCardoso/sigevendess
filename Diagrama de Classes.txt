@@ -1,0 +1,94 @@
+Link para o PlantText: https://www.planttext.com/
+Documentaçao do PlantText: https://plantuml.com/class-diagram
+
+@startuml
+
+title Sigevendees Diagrama de Classes
+
+class Produto {
+  -Integer codigo
+  -String descricao
+  -CategoryTypes categoria
+  -MeasureUnits simbolo
+  -float preco
+  -Receita receita
+}
+
+class Componente{
+  -float estoqueMin
+  -float estoqueAtual
+}
+
+class Receita{
+  -Integer codigo
+  -Produto produto
+  -float rendimento
+  -float tempoPreparo
+  -List<ItemReceita> componentes
+  +addComponente(Componente, float): void
+  +removeComponente(Componente): void
+}
+
+class ItemReceita{
+  -Receita codReceita
+  -Componente codComponente
+  -float qtdUtilizada
+}
+
+class CustoFixo{
+  -float proLabore
+  -float outros
+}
+
+class Telefone{
+    -byte ddd
+    -int digito
+}
+
+class Endereco{
+    -Integer codigo
+    -int cep
+    -String logradouro
+    -Short numero
+    -String bairro
+    -String complemento
+    -String cidade
+    -String estado
+}
+
+class Cliente{
+    -Telefone numero
+    -String nome
+    -String email
+    -String nomEstabelecimento
+    -String observacao
+    -Endereco endereco
+}
+
+enum CategoryTypes <<enumeration>>{
+  INGREDIENTE
+  EMBALAGEM
+  DOCE
+  SALGADO
+}
+
+enum MeasureUnits <<enumeration>>{
+  GRAMAS
+  MILILITROS
+  UNIDADE
+  CENTO
+}
+
+Produto o-- Receita
+Produto <|-- Componente
+Produto ..> CategoryTypes
+Produto ..> MeasureUnits
+Receita ..> Componente
+Receita *-- ItemReceita
+Receita -- CustoFixo
+Componente <--o ItemReceita
+Cliente o--> Telefone
+Cliente o--> Endereco
+
+hide <<enumeration>> circle
+@enduml

@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-
 import br.com.sigevendees.enums.CategoryTypes;
 import br.com.sigevendees.enums.MeasureUnits;
 

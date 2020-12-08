@@ -18,7 +18,7 @@ public class TestaComponenteRepository {
 	static Gson gson = new Gson();
 
 	public static void testaConverterJavaParaJson_e_vice_versa(Integer cod) {
-		Componente componente = dao.buscarPorId(cod);
+		Componente componente = dao.buscarPor(cod);
 		System.out.println("\nComponente Recuperados");
 		System.out.println(componente);
 		
@@ -67,8 +67,9 @@ public class TestaComponenteRepository {
 	}
 
 	public static void main(String[] args) {
-		// JSON RETORNADO:
-		/*
+
+		testaConverterJavaParaJson_e_vice_versa(1);
+		/* JSON RETORNADO:
 		 {
 		    "codigo": 1,
 		    "descricao": "Farinha de trigo",
@@ -79,9 +80,8 @@ public class TestaComponenteRepository {
 		    "preco": 0.0
 		 }
 		*/
-		testaConverterJavaParaJson_e_vice_versa(1);
-		// ArrayJSON RETORNADO:
-		/*
+		testaConverterListJavaParaJson_e_vice_versa();
+		/* ArrayJSON RETORNADO:
 		[
 		    {
 		        "codigo": 1,
@@ -121,8 +121,7 @@ public class TestaComponenteRepository {
 		    }
 		]
 		*/
-		testaConverterListJavaParaJson_e_vice_versa();
-		// testaNovoComponente();
+		testaNovoComponente();
 	}
 
 }

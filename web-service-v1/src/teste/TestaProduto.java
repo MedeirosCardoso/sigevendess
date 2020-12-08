@@ -42,9 +42,9 @@ public class TestaProduto {
 
 	public static void testaSalvarProduto() {
 		// Busca a lista de componentes.
-		Componente farinha = daoComponente.buscarPorId(1);
-		Componente leite = daoComponente.buscarPorId(2);
-		Componente pote = daoComponente.buscarPorId(3);
+		Componente farinha = daoComponente.buscarPor(1);
+		Componente leite = daoComponente.buscarPor(2);
+		Componente pote = daoComponente.buscarPor(3);
 		// Cria uma nova receita;
 		Receita receita = new Receita(100, 0.60f);
 		// Adiciona na lista da receita o componente e a qtd utilizada.
@@ -63,7 +63,7 @@ public class TestaProduto {
 	}
 
 	public static void testaBuscarPorIdProduto(int cod) {
-		Produto boloDeChocolate = daoProduto.buscarPorId(cod);
+		Produto boloDeChocolate = daoProduto.buscarPor(cod);
 		if (boloDeChocolate != null) {
 			System.out.print(boloDeChocolate);
 		} else {
@@ -88,14 +88,14 @@ public class TestaProduto {
 	}
 
 	public static void testaBuscarTodosComReceita() {
-		for (Produto produto : daoProduto.buscarTodos_e_suas_receitas()) {
+		for (Produto produto : daoProduto.buscarProdutos_e_suas_receitas()) {
 			System.out.println(produto);
 			System.out.println();
 		}
 	}
 
 	public static void testaAtualizarProduto(int cod) {
-		Produto produto = daoProduto.buscarPorId(cod);
+		Produto produto = daoProduto.buscarPor(cod);
 		// produto com as informações a ser alterada.
 		System.out.println(produto);
 		// Altera os valores.
@@ -117,9 +117,9 @@ public class TestaProduto {
 	}
 
 	public static void main(String[] args) {
-		 testaSalvarProduto();
-		// testaBuscarPorIdProduto(6);
-		// testaBuscarProdutoComReceita(6);
+		// testaSalvarProduto();
+		// testaBuscarPorIdProduto(5);
+		 testaBuscarProdutoComReceita(5);
 		// testaBuscarTodos();
 		// testaBuscarTodosComReceita();
 		// testaAtualizarProduto(8);

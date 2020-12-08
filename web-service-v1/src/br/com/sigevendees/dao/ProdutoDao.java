@@ -6,10 +6,10 @@ import org.hibernate.jpa.QueryHints;
 import br.com.sigevendees.connectionFactory.FactoryHibernate;
 import br.com.sigevendees.entity.Produto;
 
-public class ProdutoDao extends GenericDao<Produto> implements DaoInterface<Produto>{
+public class ProdutoDao extends GenericDao<Produto, Integer> {
 
 	// Método retorna o Produto sem a sua Receita.
-	public Produto buscarPorId(Integer codigo) {
+	public Produto buscarPor(Integer codigo) {
 		Produto resultado = null;
 		try {
 			session = FactoryHibernate.getSessionFactory().openSession();
@@ -74,7 +74,7 @@ public class ProdutoDao extends GenericDao<Produto> implements DaoInterface<Prod
 	}
 
 	// Método retorna todos os produtos e a Receita de cada Produto.
-	public List<Produto> buscarTodos_e_suas_receitas() {
+	public List<Produto> buscarProdutos_e_suas_receitas() {
 		List<Produto> lista = null;
 		try {
 			session = FactoryHibernate.getSessionFactory().openSession();
@@ -100,10 +100,6 @@ public class ProdutoDao extends GenericDao<Produto> implements DaoInterface<Prod
 		return lista;
 	}
 
-	/*
-	 * essa jpql faz um select na tabela produto e na tabela receita, mas da erro ao
-	 * tentar trazer a receita.
-	 * "SELECT p FROM Produto p WHERE p.categoria LIKE('%DOCE%') OR p.categoria LIKE('%SALGADO%')"
-	 * ;
-	 */
+	/* "SELECT p FROM Produto p WHERE p.categoria LIKE('%DOCE%') OR p.categoria LIKE('%SALGADO%')";
+	    esse jpql faz um select na tabela produto e na tabela receita, mas da erro ao tentar trazer a receita. */
 }

@@ -28,7 +28,7 @@ public class TestaComponente {
 	}
 
 	public static void testaBuscarPorIdComponente(int cod) {
-		Componente farinha = daoComponente.buscarPorId(cod);
+		Componente farinha = daoComponente.buscarPor(cod);
 		if (farinha != null) {
 			System.out.print(farinha);
 		} else {
@@ -45,7 +45,7 @@ public class TestaComponente {
 
 	public static void testaAtualizarComponente(int cod) {
 		// Busca o componente a ser alterado.
-		Componente componente = daoComponente.buscarPorId(cod);
+		Componente componente = daoComponente.buscarPor(cod);
 		// componente com as informações a ser alterada.
 		System.out.println(componente);
 		// Altera os valores.
@@ -56,8 +56,8 @@ public class TestaComponente {
 	}
 
 	public static void main(String[] args) {
-		// testaBuscarPorIdComponente(1);
-		 testaBuscarTodos();
+		 testaBuscarPorIdComponente(1);
+		// testaBuscarTodos();
 	}
 
 }

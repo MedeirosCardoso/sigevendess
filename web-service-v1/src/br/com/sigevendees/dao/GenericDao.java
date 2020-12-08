@@ -4,11 +4,14 @@ import java.util.List;
 import org.hibernate.Session;
 import br.com.sigevendees.connectionFactory.FactoryHibernate;
 
-public abstract class GenericDao<E> {
+/* Esta classe representa as ações em comum entre os DAO
+ * E representa o tipo da Entity para persistir, atualizar e recuperar do BD.
+ * I representa o tipo do Id utilizado para recuperar do BD.*/
+public abstract class GenericDao<E, I> implements InterfaceDao<E, I>{
 
 	protected Session session;
 	private boolean resultado;
-
+	
 	public boolean salvar(E entity) {
 		try {
 			this.session = FactoryHibernate.getSessionFactory().openSession();
@@ -45,12 +48,12 @@ public abstract class GenericDao<E> {
 		return resultado;
 	}
 
-	protected E buscarPorId(Class<E> classe, Integer codigo) {
+	protected E buscarPor(Class<E> classe, I id) {
 		E resultado = null;
 		try {
 			this.session = FactoryHibernate.getSessionFactory().openSession();
 			this.session.beginTransaction();
-			resultado = session.find(classe, codigo);
+			resultado = session.find(classe, id);
 			this.session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("ERRO! Não foi possivel realizar a busca \n" + "Motivo: ");

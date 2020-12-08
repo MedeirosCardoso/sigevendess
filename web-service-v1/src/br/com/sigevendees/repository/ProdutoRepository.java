@@ -5,17 +5,16 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
-import br.com.sigevendees.dao.DaoInterface;
 import br.com.sigevendees.dao.ProdutoDao;
 import br.com.sigevendees.entity.ItemReceita;
 import br.com.sigevendees.entity.Produto;
 import br.com.sigevendees.entity.Receita;
 
-public class ProdutoRepository extends GenericRepository<Produto, DaoInterface<Produto>> {
+public class ProdutoRepository extends GenericRepository<Produto, Integer> {
 
 	public ProdutoRepository() {
-		dao = new ProdutoDao();
-		classe = Produto.class;
+		this.dao = new ProdutoDao();
+		this.classe = Produto.class;
 	}
 
 	@Override
@@ -39,23 +38,23 @@ public class ProdutoRepository extends GenericRepository<Produto, DaoInterface<P
 			Produto produto = new Produto(dadosNovoProduto.getDescricao(), dadosNovoProduto.getCategoria(),
 					dadosNovoProduto.getSimbolo(), dadosNovoProduto.getPreco(), receita);
 			// persistir no BD o novo Produto.
-			if (dao.salvar(produto)) {
+			if (this.dao.salvar(produto)) {
 				// novo produto foi criado e persistido no BD com sucesso.
-				resposta = mensagemCriadoRecurso();
+				this.resposta = mensagemCriadoRecurso();
 			} else {
 				// os dados informado possui campos inválidos.
-				resposta = mensagemDadosInvalidos();
+				this.resposta = mensagemDadosInvalidos();
 			}
 		} else {
 			// aconteceu um erro com o servidor;
-			resposta = mensagemErro();
+			this.resposta = mensagemErro();
 		}
-		return resposta;
+		return this.resposta;
 	}
 
 	public Response getProduto_e_sua_receita(Integer codigo) {
 		// guarda os valores retornados do BD.
-		Produto resultado = ((ProdutoDao) dao).buscarProduto_e_sua_receita(codigo);
+		Produto resultado = ((ProdutoDao) this.dao).buscarProduto_e_sua_receita(codigo);
 		if (resultado != null) {
 			// pega os componentes da receita do produto retornado.
 			List<ItemReceita> componentes = new ArrayList<>();
@@ -71,17 +70,17 @@ public class ProdutoRepository extends GenericRepository<Produto, DaoInterface<P
 			// converte o novo produto para uma string em JSON.
 			String produtoEmJson = converterParaJSON(produtoEmJava);
 			// retorna um response com o produto em JSON.
-			resposta = mensagemSucesso(produtoEmJson);
+			this.resposta = mensagemSucesso(produtoEmJson);
 		} else {
 			// retorna um response informando que o Id informado não possui cadastro.
-			resposta = mensagemNaoEncontrado();
+			this.resposta = mensagemNaoEncontrado();
 		}
-		return resposta;
+		return this.resposta;
 	}
 
 	public Response getProdutos_e_suas_receitas() {
 	// guarda os valores retornados do BD.
-	List<Produto> lista = ((ProdutoDao) dao).buscarTodos_e_suas_receitas();
+	List<Produto> lista = ((ProdutoDao) this.dao).buscarProdutos_e_suas_receitas();
 	if (lista != null) {
 		List<Produto> produtos = new ArrayList<>();
 		// percorrer a lista retornado do BD.
@@ -100,26 +99,26 @@ public class ProdutoRepository extends GenericRepository<Produto, DaoInterface<P
 		// converte a lista com os novos produtos para uma string em JSON.
 		String listaEmJson = converterParaArrayJSON(produtos);
 		// retorna um response com o lista de produtos em JSON.
-		resposta = mensagemSucesso(listaEmJson);
+		this.resposta = mensagemSucesso(listaEmJson);
 	} else {
 		// retorna um response informando que não possui cadastro.
-		resposta = mensagemNaoEncontrado();
+		this.resposta = mensagemNaoEncontrado();
 	}
-	return resposta;
+	return this.resposta;
 
 }
 
 	@Override
 	public List<Produto> converterParaListaJava(String listaEmJson) {
 		/*
-		 * Gson não aceita objetos genérico, falha ao desserializar os values. // Para
-		 * resolver esse problema, é necessario especificar o tipo parametrizado correto
-		 * para seu tipo genérico. // Para isso é necessario o uso da classe TypeToken.
+		 * Gson não aceita objetos genérico, falha ao desserializar os values.
+		 * Para resolver esse problema, é necessario especificar o tipo parametrizado correto para seu tipo genérico.
+		 * Para isso é necessario o uso da classe TypeToken.
 		 * FONTE: https://sites.google.com/site/gson/gson-user-guide#TOC-Array-Examples
 		 */
 		Type collectionType = new TypeToken<List<Produto>>() {}.getType();
 		try {
-			List<Produto> lista = gson.fromJson(listaEmJson, collectionType);
+			List<Produto> lista = this.gson.fromJson(listaEmJson, collectionType);
 			return lista;
 		} catch (Exception e) {
 			System.out.println("ERRO! Não foi possivel converter o Objeto informado \n" + "Motivo: ");

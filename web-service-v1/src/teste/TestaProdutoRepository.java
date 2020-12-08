@@ -22,7 +22,7 @@ public class TestaProdutoRepository {
 	static Gson gson = new Gson();
 	
 	public static void testaConverterProdutoParaJson_e_vice_versa(Integer cod) {
-		Produto produto = dao.buscarPorId(cod);
+		Produto produto = dao.buscarPor(cod);
 		System.out.println("\nProduto Recuperado");
 		System.out.println(produto);
 		
@@ -83,7 +83,7 @@ public class TestaProdutoRepository {
 	}
 
 	public static void testaConverterListProdutos_e_suas_receitas_paraJson_e_vice_versa() {
-		List<Produto> produtos = dao.buscarTodos_e_suas_receitas();
+		List<Produto> produtos = dao.buscarProdutos_e_suas_receitas();
 		System.out.println("\nProdutos Recuperados");
 		for (Produto p : produtos) {
 			System.out.println(p + "\n");
