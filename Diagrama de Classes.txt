@@ -1,7 +1,6 @@
-Link para o PlantText: https://www.planttext.com/
-Documentaçao do PlantText: https://plantuml.com/class-diagram
-
 @startuml
+'Link para o PlantText: https://www.planttext.com/
+'Documentaçao do PlantText: https://plantuml.com/class-diagram
 
 title Sigevendees Diagrama de Classes
 
@@ -30,14 +29,22 @@ class Receita{
 }
 
 class ItemReceita{
-  -Receita codReceita
-  -Componente codComponente
+  -Receita receita
+  -Componente componente
   -float qtdUtilizada
 }
 
-class CustoFixo{
-  -float proLabore
-  -float outros
+class Aquisicao{
+    -Integer codigo
+    -List<itemAquisicao> componentes
+    -Date dataAquisicao
+}
+
+class ItemAquisicao{
+    -Aquisicao aquisicao
+    -Componente componente
+    -float qtdAdquirida
+    -float custo
 }
 
 class Telefone{
@@ -65,18 +72,62 @@ class Cliente{
     -Endereco endereco
 }
 
+class Pedido{
+  -Integer codigo
+  -Cliente cliente
+  -Status situacao
+  -Date dataSolicitado
+  -Date dataEntrega
+  -List<ItemPedido> itens
+  -Venda venda
+}
+
+class ItemPedido{
+    -Pedido pedido
+    -Produto produto
+    -int qtdSolicitado
+    -float vlrTotDescItem
+    -float vlrTotVendaitem
+    -int qtdVendido
+    -int qtdDescartado
+    -Date produzidoEm
+}
+
+class Venda{
+    -Integer codigo
+    -PaymentOptions opcPagamento
+    -Date data
+    -float vlrTotalVenda
+    -float vlrTotalDescVenda
+    -Pedido pedido
+}
+
 enum CategoryTypes <<enumeration>>{
-  INGREDIENTE
-  EMBALAGEM
-  DOCE
-  SALGADO
+    INGREDIENTE
+    EMBALAGEM
+    DOCE
+    SALGADO
 }
 
 enum MeasureUnits <<enumeration>>{
-  GRAMAS
-  MILILITROS
-  UNIDADE
-  CENTO
+    GRAMAS
+    MILILITROS
+    UNIDADE
+    CENTO
+}
+
+enum Status <<enumeration>>{
+    PRODUCAO
+    PRONTO
+    VENDIDO
+    CANCELADO
+}
+
+enum PaymentOptions <<enumeration>>{
+    DINHEIRO
+    CREDITO
+    DEBITO
+    PRAZO
 }
 
 Produto o-- Receita
@@ -85,10 +136,17 @@ Produto ..> CategoryTypes
 Produto ..> MeasureUnits
 Receita ..> Componente
 Receita *-- ItemReceita
-Receita -- CustoFixo
 Componente <--o ItemReceita
-Cliente o--> Telefone
+Componente <--o ItemAquisicao
+Aquisicao *-- ItemAquisicao
+Cliente *--> Telefone
 Cliente o--> Endereco
+Pedido --> Cliente
+Pedido *--ItemPedido
+Pedido ..> Status
+ItemPedido o--> Produto
+Venda ..> PaymentOptions
+Venda *-- Pedido
 
 hide <<enumeration>> circle
 @enduml
