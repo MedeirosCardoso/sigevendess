@@ -1,105 +1,103 @@
 @startuml
 'Link para o PlantText: https://www.planttext.com/
-'DocumentaÃ§ao do PlantText: https://plantuml.com/class-diagram
+'Documentaçao do PlantText: https://plantuml.com/class-diagram
 
-title Sigevendees Diagrama de Classes
+title Diagrama de Classes
 
-class Produto {
-  -Integer codigo
-  -String descricao
-  -CategoryTypes categoria
-  -MeasureUnits simbolo
-  -float preco
-  -Receita receita
+class Produto{
+  -codigo: Integer
+  -descricao: String
+  -categoria: CategoryTypes
+  -simbolo: MeasureUnits
+  -preco: float
+  -receita: Receita
 }
 
 class Componente{
-  -float estoqueMin
-  -float estoqueAtual
+  -estoqueMin: float
+  -estoqueAtual: float
 }
 
 class Receita{
-  -Integer codigo
-  -Produto produto
-  -float rendimento
-  -float tempoPreparo
-  -List<ItemReceita> componentes
+  -codigo: Integer
+  -produto: Produto
+  -rendimento: float
+  -tempoPreparo: float
+  -componentes: List<ItemReceita>
   +addComponente(Componente, float): void
   +removeComponente(Componente): void
 }
 
 class ItemReceita{
-  -Receita receita
-  -Componente componente
-  -float qtdUtilizada
+  -receita: Receita
+  -componente: Componente
+  -qtdUtilizada: float
 }
 
 class Aquisicao{
-    -Integer codigo
-    -List<itemAquisicao> componentes
-    -Date dataAquisicao
+    -codigo: Integer
+    -componentes: List<itemAquisicao>
+    -dataAquisicao: Date
 }
 
 class ItemAquisicao{
-    -Aquisicao aquisicao
-    -Componente componente
-    -float qtdAdquirida
-    -float custo
+    -aquisicao: Aquisicao
+    -componente: Componente
+    -qtdAdquirida: float
+    -custo: float
 }
 
 class Telefone{
-    -byte ddd
-    -int digito
+    -ddd: byte
+    -digito: int
 }
 
 class Endereco{
-    -Integer codigo
-    -int cep
-    -String logradouro
-    -Short numero
-    -String bairro
-    -String complemento
-    -String cidade
-    -String estado
+    -codigo: Integer
+    -cep: int
+    -logradouro: String
+    -numero: Short
+    -bairro: String
+    -complemento: String
+    -cidade: String
+    -estado: String
 }
 
 class Cliente{
-    -Telefone numero
-    -String nome
-    -String email
-    -String nomEstabelecimento
-    -String observacao
-    -Endereco endereco
+    -numero: Telefone
+    -nome: String
+    -email: String
+    -nomEstabelecimento: String
+    -observacao: String
+    -endereco: Endereco
 }
 
 class Pedido{
-  -Integer codigo
-  -Cliente cliente
-  -Status situacao
-  -Date dataSolicitado
-  -Date dataEntrega
-  -List<ItemPedido> itens
-  -Venda venda
+  -codigo: Integer
+  -cliente: Cliente
+  -situacao: Status
+  -dataSolicitado: Date
+  -dataEntrega: Date
+  -itens: List<ItemPedido>
+  -vendaPedido: Venda
 }
 
 class ItemPedido{
-    -Pedido pedido
-    -Produto produto
-    -int qtdSolicitado
-    -float vlrTotDescItem
-    -float vlrTotVendaitem
-    -int qtdVendido
-    -int qtdDescartado
-    -Date produzidoEm
+    -pedido: Pedido
+    -produto: Produto
+    -qtdSolicitado: int
+    -vlrDescItem: float
+    -vlrVendaitem: float
+    -produzidoEm: Date
 }
 
 class Venda{
-    -Integer codigo
-    -PaymentOptions opcPagamento
-    -Date data
-    -float vlrTotalVenda
-    -float vlrTotalDescVenda
-    -Pedido pedido
+    -codigo: Integer
+    -opcPagamento: PaymentOptions
+    -data: Date
+    -vlrTotalVenda: float
+    -vlrTotalDesc: float
+    -pedidoVenda: Pedido
 }
 
 enum CategoryTypes <<enumeration>>{
