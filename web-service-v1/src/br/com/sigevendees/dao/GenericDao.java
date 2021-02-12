@@ -1,33 +1,42 @@
 package br.com.sigevendees.dao;
 
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.hibernate.Session;
 import br.com.sigevendees.connectionFactory.FactoryHibernate;
 
 /* Esta classe representa as ações em comum entre os DAO
  * E representa o tipo da Entity para persistir, atualizar e recuperar do BD.
  * I representa o tipo do Id utilizado para recuperar do BD.*/
-public abstract class GenericDao<E, I> implements InterfaceDao<E, I>{
+public abstract class GenericDao<E, I> implements InterfaceDao<E, I> {
 
-	protected Session session;
-	private boolean resultado;
+	private boolean ok;
+	private E resultado;
+	private List<E> lista;
+	private Session session;
+	private String jpql;
 	
+	
+	public void setJpql(String jpql) {
+		this.jpql = jpql;
+	}
+
 	public boolean salvar(E entity) {
 		try {
 			this.session = FactoryHibernate.getSessionFactory().openSession();
 			this.session.beginTransaction();
 			this.session.save(entity);
 			this.session.getTransaction().commit();
-			this.resultado = true;
+			this.ok = true;
 		} catch (Exception e) {
 			System.out.println("ERRO! Não foi possivel salvar \n" + "Motivo: ");
 			e.printStackTrace();
 			FactoryHibernate.closeSessioFactory();
-			this.resultado = false;
+			this.ok = false;
 		} finally {
 			this.session.close();
 		}
-		return resultado;
+		return this.ok;
 	}
 
 	public boolean atualizar(E entity) {
@@ -36,24 +45,49 @@ public abstract class GenericDao<E, I> implements InterfaceDao<E, I>{
 			this.session.beginTransaction();
 			this.session.update(entity);
 			this.session.getTransaction().commit();
-			this.resultado = true;
+			this.ok = true;
 		} catch (Exception e) {
 			System.out.println("ERRO! Não foi possivel atualizar \n" + "Motivo: ");
 			e.printStackTrace();
 			FactoryHibernate.closeSessioFactory();
-			this.resultado = false;
+			this.ok = false;
 		} finally {
 			this.session.close();
 		}
-		return resultado;
+		return this.ok;
 	}
 
-	protected E buscarPor(Class<E> classe, I id) {
-		E resultado = null;
+	public E buscarPor(Class<E> classe, I id) {
+		this.resultado = null;
 		try {
 			this.session = FactoryHibernate.getSessionFactory().openSession();
 			this.session.beginTransaction();
-			resultado = session.find(classe, id);
+			if(this.jpql == null) {
+				this.resultado = this.session.find(classe, id);
+			}else {
+				// Utilizado para consultas do tipo FetchType.LAZY.
+				this.resultado = this.session.createQuery(this.jpql, classe).setParameter("codigo", id).getSingleResult();
+			}
+			this.session.getTransaction().commit();
+		} catch (NoResultException e) {
+			// Não foi encotrado a Entity com o id informado.
+			return null;
+		} catch (Exception e) {
+			System.out.println("ERRO! Não foi possivel realizar a busca \n" + "Motivo: ");
+			e.printStackTrace();
+			FactoryHibernate.closeSessioFactory();
+		} finally {
+			this.session.close();
+		}
+		return this.resultado;
+	}
+
+	public List<E> buscarTodos(Class<E> classe) {
+		this.lista = null;
+		try {
+			this.session = FactoryHibernate.getSessionFactory().openSession();
+			this.session.beginTransaction();
+			this.lista = this.session.createQuery(this.jpql, classe).getResultList();
 			this.session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("ERRO! Não foi possivel realizar a busca \n" + "Motivo: ");
@@ -62,24 +96,6 @@ public abstract class GenericDao<E, I> implements InterfaceDao<E, I>{
 		} finally {
 			this.session.close();
 		}
-		return resultado;
-	}
-
-	protected List<E> buscarTodos(Class<E> classe) {
-		List<E> lista = null;
-		try {
-			this.session = FactoryHibernate.getSessionFactory().openSession();
-			String jpql = "FROM " + classe.getName();
-			this.session.beginTransaction();
-			lista = this.session.createQuery(jpql, classe).getResultList();
-			this.session.getTransaction().commit();
-		} catch (Exception e) {
-			System.out.println("ERRO! Não foi possivel realizar a busca \n" + "Motivo: ");
-			e.printStackTrace();
-			FactoryHibernate.closeSessioFactory();
-		} finally {
-			this.session.close();
-		}
-		return lista;
+		return this.lista;
 	}
 }

@@ -30,7 +30,7 @@ public class Receita {
 	@Column(nullable = false)
 	private float tempoPreparo;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "receita", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemReceita> componentes = new ArrayList<>();
 
 	public Receita() {
@@ -52,10 +52,6 @@ public class Receita {
 
 	public Integer getCodigo() {
 		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
 	}
 
 	public Produto getProduto() {
@@ -85,24 +81,21 @@ public class Receita {
 	public List<ItemReceita> getComponentes() {
 		return componentes;
 	}
-	
-	public void setComponentes(List<ItemReceita> componentes) {
-		this.componentes = componentes;
-	}
-	// Método utilizado para sincronizar as duas extremidades sempre que um elemento
-	// filho(Componente) é adicionado.
+
+	/*
+	 * Métodos abaixo utilizados para sincronizar as duas extremidades, sempre que
+	 * um elemento filho(Componente) é adicionado ou removido.
+	 */
 	public void addComponente(Componente componente, float qtdUtilizada) {
 		ItemReceita item = new ItemReceita(this, componente, qtdUtilizada);
-		componentes.add(item);
+		this.componentes.add(item);
 	}
 
-	// Método utilizado para sincronizar as duas extremidade sempre que um elemento
-	// filho(Componente) é removido.
 	public void removeComponente(Componente componente) {
 		ItemReceita item = new ItemReceita();
-		item.setComponete(componente);
-		componentes.remove(item);
-		item.setComponete(null);
+		item.setComponente(componente);
+		this.componentes.remove(item);
+		item.setComponente(null);
 		item.setReceita(null);
 	}
 

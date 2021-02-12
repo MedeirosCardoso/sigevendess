@@ -34,8 +34,8 @@ public class Cliente {
 		this.numero = numero;
 		this.nome = nome;
 		this.email = email;
-		this.nomEstabelecimento = nomEstabelecimento;
-		this.observacao = observacao;
+		this.nomEstabelecimento = nomEstabelecimento.trim();
+		this.observacao = observacao.trim();
 		this.endereco = endereco;
 	}
 

@@ -12,7 +12,7 @@ public class TestaProduto {
 	static ProdutoDao daoProduto = new ProdutoDao();
 	static ComponenteDao daoComponente = new ComponenteDao();
 
-	public static void testaClasseProduto() {
+	public static void testaClasse() {
 		// Pega os valores do produto.
 		String descProduto = "Bolo de chocolate";
 		CategoryTypes tipoDoProduto = CategoryTypes.DOCE;
@@ -35,26 +35,26 @@ public class TestaProduto {
 		receita.addComponente(leite, 1);
 		receita.addComponente(pote, 1);
 
-		// Cria um novo produto;
+		// Cria um novo produto.
 		Produto boloDeChocolate = new Produto(descProduto, tipoDoProduto, tipoUnit, precoVenda, receita);
 		System.out.println(boloDeChocolate);
 	}
 
-	public static void testaSalvarProduto() {
+	public static void testaSalvar() {
 		// Busca a lista de componentes.
 		Componente farinha = daoComponente.buscarPor(1);
-		Componente leite = daoComponente.buscarPor(2);
+		Componente ovo = daoComponente.buscarPor(2);
 		Componente pote = daoComponente.buscarPor(3);
-		// Cria uma nova receita;
+		// Cria uma nova receita (rendimento, tempoPreparo).
 		Receita receita = new Receita(100, 0.60f);
-		// Adiciona na lista da receita o componente e a qtd utilizada.
+		// Adiciona na lista da receita componente e a qtd utilizada.
 		receita.addComponente(farinha, 250);
-		receita.addComponente(leite, 1);
+		receita.addComponente(ovo, 2);
 		receita.addComponente(pote, 1);
 		// Cria um novo produto e passa a sua receita.
-		Produto hotDog = new Produto("Coxinha", CategoryTypes.SALGADO, MeasureUnits.UNIDADE, 7, receita);
+		Produto bolo = new Produto("Bolo", CategoryTypes.DOCE, MeasureUnits.UNIDADE, 7, receita);
 		// Salva o produto e sua receita.
-		if (daoProduto.salvar(hotDog)) {
+		if (daoProduto.salvar(bolo)) {
 			System.out.println("Produto salvo com sucesso!");
 		} else {
 			System.out.println("Não foi possivel salvar o produto!");
@@ -62,10 +62,10 @@ public class TestaProduto {
 
 	}
 
-	public static void testaBuscarPorIdProduto(int cod) {
-		Produto boloDeChocolate = daoProduto.buscarPor(cod);
-		if (boloDeChocolate != null) {
-			System.out.print(boloDeChocolate);
+	public static void testaBuscarPorId(int cod) {
+		Produto bolo = daoProduto.buscarPor(cod);
+		if (bolo != null) {
+			System.out.print(bolo);
 		} else {
 			System.out.print("Produto não cadastrado!");
 		}
@@ -94,36 +94,46 @@ public class TestaProduto {
 		}
 	}
 
-	public static void testaAtualizarProduto(int cod) {
+	public static void testaAtualizar(int cod) {
 		Produto produto = daoProduto.buscarPor(cod);
-		// produto com as informações a ser alterada.
-		System.out.println(produto);
-		// Altera os valores.
-		produto.setDescricao("Sanduíche natural");
-		daoProduto.atualizar(produto);
-		// produto com as informações atualizadas.
-		System.out.println(produto);
+		if (produto != null) {
+			// produto com as informações a ser alterada.
+			System.out.println(produto);
+			// Altera os valores.
+			produto.setDescricao("Bolo de chocolate");
+			daoProduto.atualizar(produto);
+			// produto com as informações atualizadas.
+			System.out.println(produto);
+		} else {
+			System.out.print("Produto não cadastrado!");
+		}
 	}
 
-	public static void testaAtualizarProduto_e_suaReceita(int cod) {
+	public static void testaAtualizarProduto_e_sua_Receita(int cod) {
 		Produto produto = daoProduto.buscarProduto_e_sua_receita(cod);
-		// produto com as informações a ser alterada.
-		System.out.println(produto);
-		// Altera a quantidade utilizada para 1 do componente com index 4 da lista de componentes do produto.
-		produto.getReceita().getComponentes().get(4).setQtdUtilizada(1);
-		daoProduto.atualizar(produto);
-		// produto com as informações atualizadas.
-		System.out.println(produto);
+		if (produto != null) {
+			// produto com as informações a ser alterada.
+			System.out.println(produto);
+			// Altera a quantidade utilizada para 3 do componente com index 4 da lista de
+			// componentes do produto.
+			produto.getReceita().getComponentes().get(1).setQtdUtilizada(3);
+			daoProduto.atualizar(produto);
+			// produto com as informações atualizadas.
+			System.out.println(produto);
+		} else {
+			System.out.print("Produto não cadastrado!");
+		}
 	}
 
 	public static void main(String[] args) {
-		// testaSalvarProduto();
-		// testaBuscarPorIdProduto(5);
-		 testaBuscarProdutoComReceita(5);
+		// testaClasse();
+		// testaSalvar();
+		// testaBuscarPorId(4);
+		// testaBuscarProdutoComReceita(4);
 		// testaBuscarTodos();
 		// testaBuscarTodosComReceita();
-		// testaAtualizarProduto(8);
-		// testaAtualizarProduto_e_suaReceita(8);
+		// testaAtualizar(4);
+		// testaAtualizarProduto_e_sua_Receita(4);
 	}
 
 }

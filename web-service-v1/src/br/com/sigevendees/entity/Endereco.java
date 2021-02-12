@@ -46,6 +46,10 @@ public class Endereco {
 		this.estado = estado;
 	}
 
+	public Integer getCodigo() {
+		return codigo;
+	}
+
 	public int getCep() {
 		return cep;
 	}

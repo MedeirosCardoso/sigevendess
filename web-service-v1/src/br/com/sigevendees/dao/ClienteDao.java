@@ -5,13 +5,17 @@ import br.com.sigevendees.entity.Cliente;
 import br.com.sigevendees.entity.Telefone;
 
 public class ClienteDao extends GenericDao<Cliente, Telefone> {
-	
-	public Cliente buscarPor(Telefone numTelefone) {
-		return super.buscarPor(Cliente.class, numTelefone);
+
+	@Override
+	public Cliente buscarPor(Telefone numero) {
+		setJpql(null);
+		return buscarPor(Cliente.class, numero);
 	}
 
+	@Override
 	public List<Cliente> buscarTodos() {
-		return super.buscarTodos(Cliente.class);
+		setJpql("FROM Cliente");
+		return buscarTodos(Cliente.class);
 	}
 
 }

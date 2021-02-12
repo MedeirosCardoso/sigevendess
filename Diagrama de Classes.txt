@@ -4,18 +4,21 @@
 
 title Diagrama de Classes
 
-class Produto{
+abstract class Mercadoria{
   -codigo: Integer
   -descricao: String
   -categoria: CategoryTypes
   -simbolo: MeasureUnits
   -preco: float
+  -estoqueAtual: float
+}
+
+class Produto{
   -receita: Receita
 }
 
 class Componente{
   -estoqueMin: float
-  -estoqueAtual: float
 }
 
 class Receita{
@@ -38,6 +41,8 @@ class Aquisicao{
     -codigo: Integer
     -componentes: List<itemAquisicao>
     -dataAquisicao: Date
+      +addComponente(Componente, float): void
+  +removeComponente(Componente): void
 }
 
 class ItemAquisicao{
@@ -129,7 +134,8 @@ enum PaymentOptions <<enumeration>>{
 }
 
 Produto o-- Receita
-Produto <|-- Componente
+Componente --|> Mercadoria
+Produto --|> Mercadoria
 Produto ..> CategoryTypes
 Produto ..> MeasureUnits
 Receita ..> Componente

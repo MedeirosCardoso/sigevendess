@@ -32,7 +32,7 @@ public class ProdutoRepository extends GenericRepository<Produto, Integer> {
 			// pegar a lista de componentes que ira compor a receita do produto.
 			// adiciona na lista da receita o componente e a qtd utilizada.
 			for (ItemReceita item : dadosNovoProduto.getReceita().getComponentes()) {
-				receita.addComponente(item.getComponete(), item.getQtdUtilizada());
+				receita.addComponente(item.getComponente(), item.getQtdUtilizada());
 			}
 			// criar um novo Produto com os dados enviado e com a receita pronta.
 			Produto produto = new Produto(dadosNovoProduto.getDescricao(), dadosNovoProduto.getCategoria(),
@@ -59,7 +59,7 @@ public class ProdutoRepository extends GenericRepository<Produto, Integer> {
 			// pega os componentes da receita do produto retornado.
 			List<ItemReceita> componentes = new ArrayList<>();
 			for (ItemReceita item : resultado.getReceita().getComponentes()) {
-				componentes.add(new ItemReceita(item.getComponete(), item.getQtdUtilizada()));
+				componentes.add(new ItemReceita(item.getComponente(), item.getQtdUtilizada()));
 			}
 			// pega a receita do produto retornado.
 			Receita receitaEmJava = new Receita(resultado.getReceita().getCodigo(),
@@ -88,7 +88,7 @@ public class ProdutoRepository extends GenericRepository<Produto, Integer> {
 			List<ItemReceita> componentes = new ArrayList<>();
 			// pega os componentes da receita de cada produto.
 			for (ItemReceita item : produto.getReceita().getComponentes()) {
-				componentes.add(new ItemReceita(item.getComponete(), item.getQtdUtilizada()));
+				componentes.add(new ItemReceita(item.getComponente(), item.getQtdUtilizada()));
 			}
 			// add um novo produto com os dados da lista percorrida.
 			produtos.add(new Produto(produto.getCodigo(), produto.getDescricao(), produto.getCategoria(),

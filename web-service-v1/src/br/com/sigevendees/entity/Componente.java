@@ -5,26 +5,18 @@ import br.com.sigevendees.enums.CategoryTypes;
 import br.com.sigevendees.enums.MeasureUnits;
 
 @Entity
-public class Componente extends Produto {
+public class Componente extends Mercadoria {
 
 	private float estoqueMin;
-
-	private float estoqueAtual;
 
 	public Componente() {
 
 	}
 
+	// Construtor utilizado ao criar novo Componente.
 	public Componente(String descricao, CategoryTypes categoria, MeasureUnits simbolo, float estoqueMin) {
-		super(descricao, categoria, simbolo);
+		super(descricao, categoria, simbolo, (float) 0.0);
 		this.estoqueMin = estoqueMin;
-	}
-
-	// Construtor utilizado no SELECT para bucar somente dados do Componente.
-	public Componente(Integer codigo, String descricao, CategoryTypes categoria, MeasureUnits simbolo, float preco, float estoqueMin, float estoqueAtual) {
-		super(codigo, descricao, categoria, simbolo, preco);
-		this.estoqueMin = estoqueMin;
-		this.estoqueAtual = estoqueAtual;
 	}
 
 	public float getEstoqueMin() {
@@ -35,19 +27,8 @@ public class Componente extends Produto {
 		this.estoqueMin = estoqueMin;
 	}
 
-	public float getEstoqueAtual() {
-		return estoqueAtual;
-	}
-
-	public void setEstoqueAtual(float estoqueAtual) {
-		this.estoqueAtual = estoqueAtual;
-	}
-
 	@Override
 	public String toString() {
-		return "Componente [codigo=" + getCodigo() + ", descricao=" + getDescricao() + ", tipoProduto=" + getCategoria()
-				+ ", tipoUnitario=" + getSimbolo() + ", custo=" + getPreco() + ", estoqueMin=" + estoqueMin
-				+ ", estoqueAtual=" + estoqueAtual + "]";
+		return "Componente[" + super.toString() + ", estoqueMin=" + estoqueMin + ", estoqueAtual=" + getEstoqueAtual() + "]";
 	}
-
 }

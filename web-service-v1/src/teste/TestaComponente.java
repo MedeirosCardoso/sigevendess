@@ -8,7 +8,7 @@ import br.com.sigevendees.enums.MeasureUnits;
 public class TestaComponente {
 	static ComponenteDao daoComponente = new ComponenteDao();
 
-	public static void testaClasseComponete() {
+	public static void testaClasse() {
 		// Pega os valores do componente.
 		String desc = "Farinha de trigo";
 		CategoryTypes tipo = CategoryTypes.INGREDIENTE;
@@ -20,14 +20,19 @@ public class TestaComponente {
 		System.out.println(farinha);
 	}
 
-	public static void testaSalvarComponente() {
+	public static void testaSalvar() {
 		// Cria um novo componente.
 		Componente farinha = new Componente("Farinha de trigo", CategoryTypes.INGREDIENTE, MeasureUnits.GRAMA, 1);
 		// salva o componente.
-		daoComponente.salvar(farinha);
+		if (daoComponente.salvar(farinha)) {
+			System.out.println("Componente salvo com sucesso!");
+		} else {
+			System.out.println("Não foi possivel salvar o Componente!");
+		}
+
 	}
 
-	public static void testaBuscarPorIdComponente(int cod) {
+	public static void testaBuscarPorId(int cod) {
 		Componente farinha = daoComponente.buscarPor(cod);
 		if (farinha != null) {
 			System.out.print(farinha);
@@ -43,21 +48,25 @@ public class TestaComponente {
 		}
 	}
 
-	public static void testaAtualizarComponente(int cod) {
+	public static void testaAtualizar(int cod) {
 		// Busca o componente a ser alterado.
 		Componente componente = daoComponente.buscarPor(cod);
-		// componente com as informações a ser alterada.
+		// Componente com as informações a ser alterada.
 		System.out.println(componente);
 		// Altera os valores.
 		componente.setDescricao("Ovo br");
+		// Salvar as aleterações.
 		daoComponente.atualizar(componente);
-		// componente com as informações atualizadas.
+		// Componente com as informações atualizadas.
 		System.out.println(componente);
 	}
 
 	public static void main(String[] args) {
-		 testaBuscarPorIdComponente(1);
+		// testaClasse();
+		// testaSalvar();
+		// testaBuscarPorId(3);
 		// testaBuscarTodos();
+		// testaAtualizar(2);
 	}
 
 }

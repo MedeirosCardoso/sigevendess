@@ -14,11 +14,18 @@
   <property name="hibernate.format_sql">true</property>
   <property name="hbm2ddl.auto">update</property>
   <!-- Aqui são listadas todas as entidades a serem persistidas -->
+  <mapping class="br.com.sigevendees.entity.Mercadoria"/>
   <mapping class="br.com.sigevendees.entity.Produto"/>
   <mapping class="br.com.sigevendees.entity.Componente"/>
   <mapping class="br.com.sigevendees.entity.Receita"/>
   <mapping class="br.com.sigevendees.entity.ItemReceita"/>
   <mapping class="br.com.sigevendees.entity.Endereco"/>
   <mapping class="br.com.sigevendees.entity.Cliente"/>
+  <mapping class="br.com.sigevendees.entity.Pedido"/>
+  <mapping class="br.com.sigevendees.entity.ItemPedido"/>
+  <mapping class="br.com.sigevendees.entity.Venda"/>
+  <mapping class="br.com.sigevendees.entity.Aquisicao"/>
+  <mapping class="br.com.sigevendees.entity.ItemAquisicao"/>
+  <mapping class="br.com.sigevendees.entity.Venda"/>
  </session-factory>
 </hibernate-configuration>

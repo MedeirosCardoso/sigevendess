@@ -8,7 +8,7 @@ import br.com.sigevendees.entity.Telefone;
 public class TestaCliente {
 	static ClienteDao dao = new ClienteDao();
 	
-	public static void testaClasseCliente() {
+	public static void testaClasse() {
 		// pega os dados do cliente.
 		Telefone telefone = new Telefone((byte) 47,999999999);
 		String nome = "CLIENTE TESTE";
@@ -24,13 +24,13 @@ public class TestaCliente {
 		System.out.println(cliente);
 	}
 	
-	public static void testaSalvarCliente() {
+	public static void testaSalvar() {
 		// pega os dados do cliente.
 		Telefone telefone = new Telefone((byte) 47,999999999);
 		String nome = "CLIENTE TESTE";
 		String email = "cliente@email.com";
 		String estabelecimento = "LOJA 001";
-		String obs = "TESTANDO A CLASSE CLIENTE.";
+		String obs = "PRIMEIRO CLIENTE.";
 		Endereco endereco = new Endereco(89037001, "RUA A", (short) 00, "CENTRO", "APARTAMENTO", "BLUMENAU", "SC");
 		
 		// Instância Cliente com os dados recebidos.
@@ -55,10 +55,18 @@ public class TestaCliente {
 		}
 	}
 	
+	public static void testaBuscarTodos() {
+		for(Cliente cliente : dao.buscarTodos()) {
+			System.out.println(cliente);
+			System.out.println();
+		}
+	}
+	
 	public static void main(String[] args) {
-		//testaClasseCliente();
-		//testaSalvarCliente();
-		testaBuscarPorId((byte) 47,999999999);
+		// testaClasse();
+		// testaSalvar();
+		// testaBuscarPorId((byte) 47,999999999);
+		// testaBuscarTodos();
 	}
 
 }

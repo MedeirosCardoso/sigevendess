@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Telefone implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6534159409524555673L;
 
 	/*
 	 * NÃO UTILIZAR O NÚMERO ZERO NA FRENTE DO DDD,

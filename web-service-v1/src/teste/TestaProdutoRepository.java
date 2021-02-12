@@ -64,7 +64,7 @@ public class TestaProdutoRepository {
 			// pega os componentes da receita do produto retornado.
 			List<ItemReceita> componentes = new ArrayList<>();
 			for (ItemReceita item : resultado.getReceita().getComponentes()) {
-				componentes.add(new ItemReceita(item.getComponete(), item.getQtdUtilizada()));
+				componentes.add(new ItemReceita(item.getComponente(), item.getQtdUtilizada()));
 			}
 			// pega a receita do produto retornado.
 			Receita receitaEmJava = new Receita(resultado.getReceita().getCodigo(),
@@ -94,7 +94,7 @@ public class TestaProdutoRepository {
 		for (Produto produto : produtos) {
 			List<ItemReceita> componentes = new ArrayList<>();
 			for (ItemReceita item : produto.getReceita().getComponentes()) {
-				componentes.add(new ItemReceita(item.getComponete(), item.getQtdUtilizada()));
+				componentes.add(new ItemReceita(item.getComponente(), item.getQtdUtilizada()));
 			}
 			lista.add(new Produto(produto.getCodigo(), produto.getDescricao(), produto.getCategoria(),
 					produto.getSimbolo(), produto.getPreco(),
@@ -120,211 +120,16 @@ public class TestaProdutoRepository {
 	}
 	
 	public static void main(String[] args) {
-		// JSON RETORNADO:
-		/*
-		 {
-		    "codigo": 5,
-		    "descricao": "Bolo de chocolate",
-		    "categoria": "DOCE",
-		    "simbolo": "UNIDADE",
-		    "preco": 7.0
-		 }
-		*/
+
 		testaConverterProdutoParaJson_e_vice_versa(5);
-		// JSON RETORNADO:
-		/*
-		[
-		    {
-		        "codigo": 5,
-		        "descricao": "Bolo de chocolate",
-		        "categoria": "DOCE",
-		        "simbolo": "UNIDADE",
-		        "preco": 7.0
-		    },
-		    {
-		        "codigo": 7,
-		        "descricao": "Hot Dog",
-		        "categoria": "SALGADO",
-		        "simbolo": "UNIDADE",
-		        "preco": 7.0
-		    }
-		]  
-		*/
+
 		testaConverterListJavaParaJson_e_vice_versa();
-		// ArrayJSON RETORNADO:
-		/*
-		{
-		    "codigo": 5,
-		    "descricao": "Bolo de chocolate",
-		    "categoria": "DOCE",
-		    "simbolo": "UNIDADE",
-		    "preco": 7.0,
-		    "receita": {
-		        "codigo": 6,
-		        "rendimento": 10.0,
-		        "tempoPreparo": 0.6,
-		        "componentes": [
-		            {
-		                "componete": {
-		                    "estoqueMin": 5000.0,
-		                    "estoqueAtual": 0.0,
-		                    "codigo": 1,
-		                    "descricao": "Farinha de trigo",
-		                    "categoria": "INGREDIENTE",
-		                    "simbolo": "GRAMA",
-		                    "preco": 0.0
-		                },
-		                "qtdUtilizada": 250.0
-		            },
-		            {
-		                "componete": {
-		                    "estoqueMin": 1000.0,
-		                    "estoqueAtual": 0.0,
-		                    "codigo": 2,
-		                    "descricao": "Leite",
-		                    "categoria": "INGREDIENTE",
-		                    "simbolo": "MILILITRO",
-		                    "preco": 0.0
-		                },
-		                "qtdUtilizada": 100.0
-		            },
-		            {
-		                "componete": {
-		                    "estoqueMin": 30.0,
-		                    "estoqueAtual": 0.0,
-		                    "codigo": 3,
-		                    "descricao": "Ovo",
-		                    "categoria": "INGREDIENTE",
-		                    "simbolo": "UNIDADE",
-		                    "preco": 0.0
-		                },
-		                "qtdUtilizada": 2.0
-		            },
-		            {
-		                "componete": {
-		                    "estoqueMin": 50.0,
-		                    "estoqueAtual": 0.0,
-		                    "codigo": 4,
-		                    "descricao": "Pote 250ml",
-		                    "categoria": "EMBALAGEM",
-		                    "simbolo": "UNIDADE",
-		                    "preco": 0.0
-		                },
-		                "qtdUtilizada": 10.0
-		            }
-		        ]
-		    }
-		} 
-		
-		*/
+
 		testaConverterProduto_e_sua_receita_paraJson_e_vice_versa(5);
-		// ArrayJSON RETORNADO:
-		/*
-		[
-		    {
-		        "codigo": 5,
-		        "descricao": "Bolo de chocolate",
-		        "categoria": "DOCE",
-		        "simbolo": "UNIDADE",
-		        "preco": 7.0,
-		        "receita": {
-		            "codigo": 6,
-		            "rendimento": 10.0,
-		            "tempoPreparo": 0.6,
-		            "componentes": [
-		                {
-		                    "componete": {
-		                        "estoqueMin": 5000.0,
-		                        "estoqueAtual": 0.0,
-		                        "codigo": 1,
-		                        "descricao": "Farinha de trigo",
-		                        "categoria": "INGREDIENTE",
-		                        "simbolo": "GRAMA",
-		                        "preco": 0.0
-		                    },
-		                    "qtdUtilizada": 250.0
-		                },
-		                {
-		                    "componete": {
-		                        "estoqueMin": 1000.0,
-		                        "estoqueAtual": 0.0,
-		                        "codigo": 2,
-		                        "descricao": "Leite",
-		                        "categoria": "INGREDIENTE",
-		                        "simbolo": "MILILITRO",
-		                        "preco": 0.0
-		                    },
-		                    "qtdUtilizada": 100.0
-		                },
-		                {
-		                    "componete": {
-		                        "estoqueMin": 30.0,
-		                        "estoqueAtual": 0.0,
-		                        "codigo": 3,
-		                        "descricao": "Ovo",
-		                        "categoria": "INGREDIENTE",
-		                        "simbolo": "UNIDADE",
-		                        "preco": 0.0
-		                    },
-		                    "qtdUtilizada": 2.0
-		                },
-		                {
-		                    "componete": {
-		                        "estoqueMin": 50.0,
-		                        "estoqueAtual": 0.0,
-		                        "codigo": 4,
-		                        "descricao": "Pote 250ml",
-		                        "categoria": "EMBALAGEM",
-		                        "simbolo": "UNIDADE",
-		                        "preco": 0.0
-		                    },
-		                    "qtdUtilizada": 10.0
-		                }
-		            ]
-		        }
-		    },
-		    {
-		        "codigo": 7,
-		        "descricao": "Hot Dog",
-		        "categoria": "SALGADO",
-		        "simbolo": "UNIDADE",
-		        "preco": 7.0,
-		        "receita": {
-		            "codigo": 8,
-		            "rendimento": 5.0,
-		            "tempoPreparo": 0.3,
-		            "componentes": [
-		                {
-		                    "componete": {
-		                        "estoqueMin": 30.0,
-		                        "estoqueAtual": 0.0,
-		                        "codigo": 3,
-		                        "descricao": "Ovo",
-		                        "categoria": "INGREDIENTE",
-		                        "simbolo": "UNIDADE",
-		                        "preco": 0.0
-		                    },
-		                    "qtdUtilizada": 1.0
-		                },
-		                {
-		                    "componete": {
-		                        "estoqueMin": 50.0,
-		                        "estoqueAtual": 0.0,
-		                        "codigo": 4,
-		                        "descricao": "Pote 250ml",
-		                        "categoria": "EMBALAGEM",
-		                        "simbolo": "UNIDADE",
-		                        "preco": 0.0
-		                    },
-		                    "qtdUtilizada": 5.0
-		                }
-		            ]
-		        }
-		    }
-		] 
-		*/
+
 		testaConverterListProdutos_e_suas_receitas_paraJson_e_vice_versa();
-		// testaNovoProduto();
+		
+		testaNovoProduto();
 	}
 
 }

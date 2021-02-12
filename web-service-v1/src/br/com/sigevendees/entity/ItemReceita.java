@@ -1,19 +1,18 @@
 package br.com.sigevendees.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/*Esta classe representa a tabela associativa entre o relacionamento de componete e receita,
- * no qual uma receita pode ser composta por vários componentes*/
+/*Esta classe representa a tabela associativa entre o relacionamento de Componete e Receita,
+ * no qual uma receita é composta por um ou vários componentes*/
 
 @Entity(name = "Item_Receita")
-public class ItemReceita implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ItemReceita implements Serializable{
+	private static final long serialVersionUID = 8932694805750610041L;
 
 	@Id
 	@ManyToOne
@@ -23,7 +22,7 @@ public class ItemReceita implements Serializable {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "codComponente")
-	private Componente componete;
+	private Componente componente;
 
 	@Column(nullable = false)
 	private float qtdUtilizada;
@@ -34,12 +33,13 @@ public class ItemReceita implements Serializable {
 
 	public ItemReceita(Receita receita, Componente componente, float qtdUtilizada) {
 		this.receita = receita;
-		this.componete = componente;
+		this.componente = componente;
 		this.qtdUtilizada = qtdUtilizada;
 	}
+	
 	// Construtor utilizado na conversão de objeto java para JSON.
 	public ItemReceita(Componente componete, float qtdUtilizada) {
-		this.componete = componete;
+		this.componente = componete;
 		this.qtdUtilizada = qtdUtilizada;
 	}
 
@@ -51,12 +51,12 @@ public class ItemReceita implements Serializable {
 		this.receita = receita;
 	}
 
-	public Componente getComponete() {
-		return componete;
+	public Componente getComponente() {
+		return componente;
 	}
 
-	public void setComponete(Componente componete) {
-		this.componete = componete;
+	public void setComponente(Componente componete) {
+		this.componente = componete;
 	}
 
 	public float getQtdUtilizada() {
@@ -71,7 +71,7 @@ public class ItemReceita implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((componete == null) ? 0 : componete.hashCode());
+		result = prime * result + ((componente == null) ? 0 : componente.hashCode());
 		result = prime * result + ((receita == null) ? 0 : receita.hashCode());
 		return result;
 	}
@@ -85,10 +85,10 @@ public class ItemReceita implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemReceita other = (ItemReceita) obj;
-		if (componete == null) {
-			if (other.componete != null)
+		if (componente == null) {
+			if (other.componente != null)
 				return false;
-		} else if (!componete.equals(other.componete))
+		} else if (!componente.equals(other.componente))
 			return false;
 		if (receita == null) {
 			if (other.receita != null)
@@ -100,7 +100,7 @@ public class ItemReceita implements Serializable {
 
 	@Override
 	public String toString() {
-		return "\n" + componete.getCodigo() + "-" + componete.getDescricao() + ", qtdUtilizada=" + qtdUtilizada;
+		return "\n" + componente.getCodigo() + "-" + componente.getDescricao() + ", qtdUtilizada=" + qtdUtilizada;
 	}
 
 }
