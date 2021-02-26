@@ -8,11 +8,11 @@ import javax.persistence.Id;
 
 @Entity
 public class Endereco {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer codigo;
-	
+
 	private int cep;
 
 	@Column(nullable = false)
@@ -36,7 +36,8 @@ public class Endereco {
 
 	}
 
-	public Endereco(int cep, String logradouro, short numero, String bairro, String complemento, String cidade, String estado) {
+	public Endereco(int cep, String logradouro, short numero, String bairro, String complemento, String cidade,
+			String estado) {
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -104,6 +105,31 @@ public class Endereco {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Endereco other = (Endereco) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 
 	@Override

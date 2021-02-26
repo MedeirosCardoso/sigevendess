@@ -41,8 +41,8 @@ class Aquisicao{
     -codigo: Integer
     -componentes: List<itemAquisicao>
     -dataAquisicao: Date
-      +addComponente(Componente, float): void
-  +removeComponente(Componente): void
+    +addComponente(Componente, float, float): void
+    +removeComponente(Componente): void
 }
 
 class ItemAquisicao{
@@ -83,26 +83,34 @@ class Pedido{
   -situacao: Status
   -dataSolicitado: Date
   -dataEntrega: Date
+  -dataProduzido: Date
   -itens: List<ItemPedido>
-  -vendaPedido: Venda
+  -vlrTotalDesconto: float
+  -vlrTotal: float
+  -venda: Venda
+  +addItem(Produto, float): void
+  +removeItem(Produto): void
+  +calcularVlrTotalPedido(): void
 }
 
 class ItemPedido{
     -pedido: Pedido
     -produto: Produto
     -qtdSolicitado: int
-    -vlrDescItem: float
-    -vlrVendaitem: float
-    -produzidoEm: Date
+    -vlrUndItem: float
+    -vlrDescUndItem: float
+    +calcularVlrTotalItem(): float
 }
 
 class Venda{
     -codigo: Integer
     -opcPagamento: PaymentOptions
     -data: Date
-    -vlrTotalVenda: float
     -vlrTotalDesc: float
-    -pedidoVenda: Pedido
+    -vlrTotalVenda: float
+    -pedidos: List<Pedido>
+    +addPedido(Pedido): void
+    +removePedido(Pedido): void
 }
 
 enum CategoryTypes <<enumeration>>{
@@ -136,21 +144,24 @@ enum PaymentOptions <<enumeration>>{
 Produto o-- Receita
 Componente --|> Mercadoria
 Produto --|> Mercadoria
-Produto ..> CategoryTypes
-Produto ..> MeasureUnits
+Mercadoria ..> CategoryTypes
+Mercadoria ..> MeasureUnits
 Receita ..> Componente
 Receita *-- ItemReceita
 Componente <--o ItemReceita
 Componente <--o ItemAquisicao
 Aquisicao *-- ItemAquisicao
+Aquisicao ..> Componente
 Cliente *--> Telefone
 Cliente o--> Endereco
 Pedido --> Cliente
 Pedido *--ItemPedido
 Pedido ..> Status
+Pedido ..> Produto
 ItemPedido o--> Produto
 Venda ..> PaymentOptions
 Venda *-- Pedido
+Venda ..> Pedido
 
 hide <<enumeration>> circle
 @enduml

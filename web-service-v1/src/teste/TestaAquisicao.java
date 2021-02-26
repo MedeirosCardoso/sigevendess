@@ -81,7 +81,7 @@ public class TestaAquisicao {
 	}
 	
 	public static void main(String[] args) {
-		// testaClasse();
+		 testaClasse();
 		// testaSalvar();
 		// testaBuscarPorId(6);
 		// testaBuscarTodos();

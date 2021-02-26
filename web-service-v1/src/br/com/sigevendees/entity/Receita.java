@@ -94,6 +94,7 @@ public class Receita {
 	public void removeComponente(Componente componente) {
 		ItemReceita item = new ItemReceita();
 		item.setComponente(componente);
+		item.setReceita(this);
 		this.componentes.remove(item);
 		item.setComponente(null);
 		item.setReceita(null);

@@ -22,7 +22,7 @@ public class TestaProduto {
 		// Pega os dados da receita.
 		int rendimento = 1;
 		float tempPreparo = 0.30f;
-		// Cria a receita;
+		// Cria a receita.
 		Receita receita = new Receita(rendimento, tempPreparo);
 
 		// Busca a lista de componentes.
@@ -126,7 +126,7 @@ public class TestaProduto {
 	}
 
 	public static void main(String[] args) {
-		// testaClasse();
+		 testaClasse();
 		// testaSalvar();
 		// testaBuscarPorId(4);
 		// testaBuscarProdutoComReceita(4);

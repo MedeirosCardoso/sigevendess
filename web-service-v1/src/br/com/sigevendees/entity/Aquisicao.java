@@ -65,8 +65,10 @@ public class Aquisicao {
 	public void removeComponente(Componente componente) {
 		ItemAquisicao item = new ItemAquisicao();
 		item.setComponente(componente);
+		item.setAquisicao(this);
 		componentes.remove(item);
 		item.setComponente(null);
+		item.setAquisicao(null);
 	}
 
 	@Override
