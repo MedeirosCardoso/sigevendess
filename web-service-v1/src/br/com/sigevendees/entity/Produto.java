@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-
 import br.com.sigevendees.enums.CategoryTypes;
 import br.com.sigevendees.enums.MeasureUnits;
 

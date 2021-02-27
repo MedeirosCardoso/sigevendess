@@ -1,5 +1,7 @@
 package br.com.sigevendees.enums;
 
+/*Esta classe representa os valores dos tipos de categoria que Produto e Componente podem receber.*/
+
 public enum CategoryTypes {
 	INGREDIENTE("Ingrediente"),
 	DOCE("Doce"),

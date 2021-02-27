@@ -1,5 +1,7 @@
 package br.com.sigevendees.enums;
 
+/*Esta classe representa os valores para o Status do Pedido.*/
+
 public enum Status {
 	PRODUCAO("Producao"),
 	PRONTO("Pronto"),

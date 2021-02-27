@@ -1,5 +1,7 @@
 package br.com.sigevendees.enums;
 
+/*Esta classe representa os valores da forma de pagamento da Venda.*/
+
 public enum PaymentOptions {
 	DINHEIRO("Dinheiro"),
 	CREDITO("Credito"),
