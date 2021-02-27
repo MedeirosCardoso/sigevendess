@@ -4,13 +4,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+
 import br.com.sigevendees.enums.CategoryTypes;
 import br.com.sigevendees.enums.MeasureUnits;
 
 @Entity
 public class Produto extends Mercadoria {
 
-	@OneToOne(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "codReceita")
 	private Receita receita;
 
 	public Produto() {

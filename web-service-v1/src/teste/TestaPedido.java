@@ -107,7 +107,7 @@ public class TestaPedido {
 	public static void main(String[] args) {
 		// testaClasse();
 		// testaSalvar();
-		// testaBuscarPorId(15);
+		// testaBuscarPorId(10);
 		// testaBuscarTodos();
 		// testaAtualizar();
 	}

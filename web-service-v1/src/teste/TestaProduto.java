@@ -114,9 +114,9 @@ public class TestaProduto {
 		if (produto != null) {
 			// produto com as informações a ser alterada.
 			System.out.println(produto);
-			// Altera a quantidade utilizada para 3 do componente com index 4 da lista de
+			// Altera a quantidade utilizada para 200 do componente com index 1 da lista de
 			// componentes do produto.
-			produto.getReceita().getComponentes().get(1).setQtdUtilizada(3);
+			produto.getReceita().getComponentes().get(0).setQtdUtilizada(200);
 			daoProduto.atualizar(produto);
 			// produto com as informações atualizadas.
 			System.out.println(produto);
@@ -126,14 +126,14 @@ public class TestaProduto {
 	}
 
 	public static void main(String[] args) {
-		 testaClasse();
+		// testaClasse();
 		// testaSalvar();
 		// testaBuscarPorId(4);
-		// testaBuscarProdutoComReceita(4);
+		// testaBuscarProdutoComReceita(19);
 		// testaBuscarTodos();
 		// testaBuscarTodosComReceita();
 		// testaAtualizar(4);
-		// testaAtualizarProduto_e_sua_Receita(4);
+		// testaAtualizarProduto_e_sua_Receita(19);
 	}
 
 }
