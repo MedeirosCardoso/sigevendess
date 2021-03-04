@@ -29,7 +29,7 @@ public class Aquisicao {
 	public Aquisicao() {
 		this.dataAquisicao = new Date();
 	}
-
+	
 	// Construtor utilizado na conversão de objeto java para JSON.
 	public Aquisicao(Integer codigo, Date dataAquisicao, List<ItemAquisicao> componentes) {
 		this.codigo = codigo;

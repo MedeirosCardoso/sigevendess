@@ -17,7 +17,7 @@ public class ProdutoDao extends GenericDao<Produto, Integer> {
 	@Override
 	public List<Produto> buscarTodos() {
 		setJpql("SELECT NEW br.com.sigevendees.entity.Produto(p.codigo, p.descricao, p.categoria, p.simbolo, p.preco) "
-				+ "FROM Produto p WHERE p.categoria LIKE('%DOCE%') OR p.categoria LIKE('%SALGADO%')");
+				+ "FROM Produto p");
 		return buscarTodos(Produto.class);
 	}
 

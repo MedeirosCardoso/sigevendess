@@ -57,7 +57,7 @@ public abstract class GenericDao<E, I> implements InterfaceDao<E, I> {
 		return this.ok;
 	}
 
-	public E buscarPor(Class<E> classe, I id) {
+	protected E buscarPor(Class<E> classe, I id) {
 		this.resultado = null;
 		try {
 			this.session = FactoryHibernate.getSessionFactory().openSession();
@@ -82,7 +82,7 @@ public abstract class GenericDao<E, I> implements InterfaceDao<E, I> {
 		return this.resultado;
 	}
 
-	public List<E> buscarTodos(Class<E> classe) {
+	protected List<E> buscarTodos(Class<E> classe) {
 		this.lista = null;
 		try {
 			this.session = FactoryHibernate.getSessionFactory().openSession();

@@ -1,5 +1,6 @@
 package br.com.sigevendees.repository;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import br.com.sigevendees.dao.InterfaceDao;
@@ -11,12 +12,41 @@ import com.google.gson.Gson;
  * I representa o tipo do Id utilizado para recuperar do BD.*/
 public abstract class GenericRepository<R, I> {
 
-	protected Gson gson = new Gson();
-	protected Response resposta;
-	protected InterfaceDao<R,I> dao;
-	// atributo utilizado na conversão de dados em Json para objeto java,
-	// no qual é informado o tipo do objeto que o json vai representar.
-	protected Class<R> classe;
+	private Gson gson;
+	private Response resposta;
+	private InterfaceDao<R, I> dao;
+	// atributo utilizado na conversão de dados em Json para objeto java, o qual é
+	// informado o tipo do objeto que o json vai representar.
+	private Class<R> classe;
+	private Type collectionType;
+
+	public void setGson(Gson gson) {
+		this.gson = gson;
+	}
+
+	public Response getResposta() {
+		return resposta;
+	}
+
+	public void setResposta(Response resposta) {
+		this.resposta = resposta;
+	}
+
+	public InterfaceDao<R, I> getDao() {
+		return dao;
+	}
+
+	public void setDao(InterfaceDao<R, I> dao) {
+		this.dao = dao;
+	}
+
+	public void setClasse(Class<R> classe) {
+		this.classe = classe;
+	}
+
+	public void setCollectionType(Type collectionType) {
+		this.collectionType = collectionType;
+	}
 
 	public Response novo(String dadosEmJson) {
 		R dadosNovoRecurso = converterParaJava(dadosEmJson);
@@ -75,7 +105,7 @@ public abstract class GenericRepository<R, I> {
 			return null;
 		}
 	}
-	
+
 	public R converterParaJava(String objetoEmJson) {
 		try {
 			R objEmJava = gson.fromJson(objetoEmJson, classe);
@@ -86,7 +116,7 @@ public abstract class GenericRepository<R, I> {
 			return null;
 		}
 	}
-	
+
 	public String converterParaArrayJSON(List<R> listaEmJava) {
 		try {
 			String listEmJson = gson.toJson(listaEmJava, Object.class);
@@ -97,8 +127,23 @@ public abstract class GenericRepository<R, I> {
 			return null;
 		}
 	}
-	
-	public abstract List<R> converterParaListaJava(String listaEmJson);
+
+	public List<R> converterParaListaJava(String listaEmJson) {
+		/*
+		 * Gson não aceita objetos genérico, falha ao desserializar os values. Para
+		 * resolver esse problema, é necessario especificar o tipo parametrizado correto
+		 * para seu tipo genérico. Para isso é necessario o uso da classe TypeToken.
+		 * FONTE: https://sites.google.com/site/gson/gson-user-guide#TOC-Array-Examples
+		 */
+		try {
+			List<R> lista = this.gson.fromJson(listaEmJson, collectionType);
+			return lista;
+		} catch (Exception e) {
+			System.out.println("ERRO! Não foi possivel converter o Objeto informado \n" + "Motivo: ");
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	protected Response mensagemSucesso(String resultado) {
 		return Response.ok(resultado, "application/json").build();
