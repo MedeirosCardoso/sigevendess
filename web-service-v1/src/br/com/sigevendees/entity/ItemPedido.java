@@ -26,10 +26,11 @@ public class ItemPedido implements Serializable {
 
 	@Column(nullable = false)
 	private int qtdSolicitado;
+	
+	@Column(nullable = false)
+	private float vlrUnit; // valor unitario do item.
 
-	private float vlrUndItem; // valor unitario do item.
-
-	private float vlrDescUndItem; // valor do desconto unitario do item.
+	private float vlrDescUnit; // valor do desconto unitario do item.
 
 	public ItemPedido() {
 
@@ -39,8 +40,8 @@ public class ItemPedido implements Serializable {
 		this.pedido = pedido;
 		this.produto = produto;
 		this.qtdSolicitado = qtdSolicitado;
-		this.vlrUndItem = produto.getPreco();
-		this.vlrDescUndItem = vlrDescItem;
+		this.vlrUnit = produto.getPreco();
+		this.vlrDescUnit = vlrDescItem;
 	}
 
 	public Pedido getPedido() {
@@ -67,16 +68,16 @@ public class ItemPedido implements Serializable {
 		this.qtdSolicitado = qtdSolicitado;
 	}
 
-	public float getVlrUndItem() {
-		return vlrUndItem;
+	public float getVlrUnit() {
+		return vlrUnit;
 	}
 
-	public float getVlrDescItem() {
-		return vlrDescUndItem;
+	public float getVlrDescUnit() {
+		return vlrDescUnit;
 	}
 
 	public float calcularVlrTotalItem() {
-		return (this.vlrUndItem - this.vlrDescUndItem) * this.qtdSolicitado;
+		return (this.vlrUnit - this.vlrDescUnit) * this.qtdSolicitado;
 	}
 
 	@Override
@@ -113,6 +114,6 @@ public class ItemPedido implements Serializable {
 	@Override
 	public String toString() {
 		return "\n" + produto.getCodigo() + "-" + produto.getDescricao() + ", qtd=" + qtdSolicitado + ", vlrUndItem="
-				+ vlrUndItem + ", desconto=" + vlrDescUndItem + ", total=" + calcularVlrTotalItem();
+				+ vlrUnit + ", desconto=" + vlrDescUnit + ", total=" + calcularVlrTotalItem();
 	}
 }

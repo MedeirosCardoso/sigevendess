@@ -4,6 +4,7 @@ import br.com.sigevendees.dao.ComponenteDao;
 import br.com.sigevendees.dao.AquisicaoDao;
 import br.com.sigevendees.entity.Aquisicao;
 import br.com.sigevendees.entity.Componente;
+import br.com.sigevendees.entity.ItemAquisicao;
 import br.com.sigevendees.enums.CategoryTypes;
 import br.com.sigevendees.enums.MeasureUnits;
 
@@ -21,11 +22,40 @@ public class TestaAquisicao {
 		Componente pote = new Componente("Pote descartável", CategoryTypes.EMBALAGEM, MeasureUnits.UNIDADE, 1);
 		
 		//Adiciona na lista de componentes da Aquisicao.
-		aquisicao.addComponente(farinha, 250, 10);
-		aquisicao.addComponente(leite, 1, 3);
-		aquisicao.addComponente(pote, 1, 5);
+		aquisicao.addComponente(farinha, 500, 10);
+		aquisicao.addComponente(leite, 30, 10);
+		aquisicao.addComponente(pote, 50, (float) 19.9);
 		
+		System.out.println("DADOS ESTOQUE ATUAL COMPONENTE");
+		System.out.println(farinha);
+		System.out.println(leite);
+		System.out.println(pote);
+		
+		
+		System.out.println("DADOS DA AQUISIÇÃO");
 		System.out.println(aquisicao);
+		
+		aquisicao.atualizarEstoqueComponente();
+		
+		System.out.println("DADOS NOVO ESTOQUE COMPONENTE");
+		System.out.println(farinha);
+		System.out.println(leite);
+		System.out.println(pote);
+		
+		Aquisicao aquisicao2 = new Aquisicao();
+		aquisicao2.addComponente(farinha, 500, 15);
+		aquisicao2.addComponente(leite, 30, 15);
+		aquisicao2.addComponente(pote, 50, (float) 24.9);
+		
+		System.out.println("DADOS DA AQUISIÇÃO 2");
+		System.out.println(aquisicao2);
+		
+		aquisicao2.atualizarEstoqueComponente();
+		
+		System.out.println("DADOS NOVO ESTOQUE COMPONENTE 2");
+		System.out.println(farinha);
+		System.out.println(leite);
+		System.out.println(pote);
 	}
 	
 	public static void testaSalvar() {
@@ -38,12 +68,19 @@ public class TestaAquisicao {
 		Aquisicao aquisicao = new Aquisicao();
 		
 		//Adiciona na lista de componentes da aquisicao(componente, qtdAdquirida, custo).
-		aquisicao.addComponente(farinha, 250, 10);
-		aquisicao.addComponente(pote, 50, (float) 19.90);
-		aquisicao.addComponente(ovo, 30, 10);
-		
+		aquisicao.addComponente(farinha, 500, 15);
+		aquisicao.addComponente(ovo, 30, 15);
+		aquisicao.addComponente(pote, 50, (float) 24.9);
+
 		if (daoAquisicao.salvar(aquisicao)) {
 			System.out.println("Aquisição salvo com sucesso!");
+			// Atualizar o estoque dos componentes adquiridos.
+			aquisicao.atualizarEstoqueComponente();
+			for (ItemAquisicao item : aquisicao.getComponentes()) {
+				if (daoComponente.atualizar(item.getComponente())) {
+					System.out.println("Estoque atualizado com sucesso!");
+				}
+			}
 		} else {
 			System.out.println("Não foi possivel salvar aquisição!");
 		}
@@ -81,7 +118,7 @@ public class TestaAquisicao {
 	}
 	
 	public static void main(String[] args) {
-		 testaClasse();
+		// testaClasse();
 		// testaSalvar();
 		// testaBuscarPorId(6);
 		// testaBuscarTodos();

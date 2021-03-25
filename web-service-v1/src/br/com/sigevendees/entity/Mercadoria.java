@@ -19,21 +19,21 @@ public abstract class Mercadoria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer codigo;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String descricao;
 
 	@Column(name = "tipo", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private CategoryTypes categoria;
 
-	@Column(name = "tipoUnitario", nullable = false)
+	@Column(name = "tipoUnitario", nullable = false, length = 10)
 	@Enumerated(EnumType.STRING)
 	private MeasureUnits simbolo;
 
 	// preço do Produto é o valor de venda.
-	// preço do Componente é o valor de custo médio da unidade.
+	// preço do Componente é o valor de custo médio unitario.
 	private float preco;
-
+	
 	private float estoqueAtual;
 
 	public Mercadoria() {

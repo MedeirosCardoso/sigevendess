@@ -13,13 +13,16 @@ public class Cliente {
 	@Id
 	private Telefone numero;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String nome;
 	
+	@Column(length = 60)
 	private String email;
-
+	
+	@Column(nullable = false, length = 60)
 	private String nomEstabelecimento;
 
+	@Column(nullable = false, length = 255)
 	private String observacao;
 	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

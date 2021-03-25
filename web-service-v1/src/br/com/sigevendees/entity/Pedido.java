@@ -47,7 +47,7 @@ public class Pedido {
 	// mesma tras os seus pedidos com os itens de cada Pedido.
 	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemPedido> itens = new ArrayList<>();
-
+	
 	private float vlrTotalDesconto;
 
 	private float vlrTotal;
@@ -149,7 +149,7 @@ public class Pedido {
 	// do Pedido.
 	public void addItem(Produto produto, int qtd, float vlrDesconto) {
 		ItemPedido item = new ItemPedido(this, produto, qtd, vlrDesconto);
-		this.vlrTotalDesconto += item.getVlrDescItem() * item.getQtdSolicitado();
+		this.vlrTotalDesconto += item.getVlrDescUnit() * item.getQtdSolicitado();
 		this.vlrTotal += item.calcularVlrTotalItem();
 		this.itens.add(item);
 	}
@@ -167,7 +167,7 @@ public class Pedido {
 		this.vlrTotalDesconto = 0;
 		this.vlrTotal = 0;
 		for (ItemPedido item : this.itens) {
-			this.vlrTotalDesconto += item.getVlrDescItem() * item.getQtdSolicitado();
+			this.vlrTotalDesconto += item.getVlrDescUnit() * item.getQtdSolicitado();
 			this.vlrTotal += item.calcularVlrTotalItem();
 		}
 	}

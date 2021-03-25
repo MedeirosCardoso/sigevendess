@@ -43,6 +43,7 @@ class Aquisicao{
     -dataAquisicao: Date
     +addComponente(Componente, float, float): void
     +removeComponente(Componente): void
+    +atualizarEstoqueComponente(): void
 }
 
 class ItemAquisicao{
@@ -97,8 +98,8 @@ class ItemPedido{
     -pedido: Pedido
     -produto: Produto
     -qtdSolicitado: int
-    -vlrUndItem: float
-    -vlrDescUndItem: float
+    -vlrUnit: float
+    -vlrDescUnit: float
     +calcularVlrTotalItem(): float
 }
 

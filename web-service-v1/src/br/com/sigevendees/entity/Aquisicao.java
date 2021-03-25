@@ -29,7 +29,7 @@ public class Aquisicao {
 	public Aquisicao() {
 		this.dataAquisicao = new Date();
 	}
-	
+
 	// Construtor utilizado na conversão de objeto java para JSON.
 	public Aquisicao(Integer codigo, Date dataAquisicao, List<ItemAquisicao> componentes) {
 		this.codigo = codigo;
@@ -69,6 +69,25 @@ public class Aquisicao {
 		componentes.remove(item);
 		item.setComponente(null);
 		item.setAquisicao(null);
+	}
+
+	public void atualizarEstoqueComponente() {
+		float qtdEstoqueAtual, qtdEntrada, precoMedioAtual, precoCompra;
+		for (ItemAquisicao item : this.componentes) {
+			qtdEstoqueAtual = item.getComponente().getEstoqueAtual();
+			qtdEntrada = item.getQtdAdquirida();
+			precoMedioAtual = item.getComponente().getPreco();
+			precoCompra = item.getCusto();
+			float novoPrecoMedio = 0;
+			if (qtdEstoqueAtual != 0) {
+				novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * (precoCompra / qtdEntrada))
+						/ (qtdEstoqueAtual + qtdEntrada);
+			} else {
+				novoPrecoMedio = precoCompra / qtdEntrada;
+			}
+			item.getComponente().setPreco(novoPrecoMedio);
+			item.getComponente().setEstoqueAtual(qtdEstoqueAtual + qtdEntrada);
+		}
 	}
 
 	@Override

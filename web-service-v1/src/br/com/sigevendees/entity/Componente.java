@@ -6,7 +6,7 @@ import br.com.sigevendees.enums.MeasureUnits;
 
 @Entity
 public class Componente extends Mercadoria {
-
+	
 	private float estoqueMin;
 
 	public Componente() {
